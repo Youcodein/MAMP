@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>게시판</title>
 
     <?php include "../include/link.php" ?>
 </head>
@@ -35,9 +35,19 @@
                         <p>웹디자이너, 웹퍼블리셔, 프론트엔드 개발자를 위한 게시판입니다.</p>
                     </div>
                     <div class="board__search">
-                        <div class="left">
-                            <!-- 총 <em>???</em>건의 게시물이 등록되어 있습니다. -->
-                        </div>
+                    <div class="left">
+                        <!-- 총 <em>1</em>건의 게시물이 등록되어 있습니다. -->
+                        <?php
+                            $sql = "SELECT count(myBoardID) FROM myBoard";
+                            $result = $connect -> query($sql);
+                            $boardCount = $result -> fetch_array(MYSQLI_ASSOC);
+                            $boardCount = $boardCount['count(myBoardID)'];
+                            echo "총 <em>{$boardCount}</em>건의 게시물이 등록되어 있습니다.";
+                            $viewNum = 10;
+                            $boardCount2 = ceil($boardCount/$viewNum);
+                            echo "현재페이지 <em>{$boardCount2}</em>페이지 입니다.";
+                        ?>
+                    </div>
                         <div class="right">
                             <form action="boardSearch.php" name="boardSearch" method="get">
                                 <fieldset>
